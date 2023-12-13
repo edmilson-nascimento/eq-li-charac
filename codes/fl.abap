@@ -1,3 +1,67 @@
+*&---------------------------------------------------------------------*
+*& Report ZMPO
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zmpo4_pm_locinstl.
+*
+
+DATA: lv_stored TYPE recabool.
+DATA: ls_data_general TYPE bapi_itob.
+DATA: ls_data_specific TYPE bapi_itob_fl_only.
+DATA: lt_return LIKE  bapiret2.
+*DATA: lt_return TYPE TABLE OF bapiret2.
+DATA: ls_return TYPE bapiret2.
+
+
+ls_data_general-objecttype = 'AT-PC'.
+ls_data_general-manfacture = 'SA PINTOOOO'.
+ls_data_general-planplant = '2800'.
+ls_data_general-descript = 'ALCOCHETE CAMPO 3'.
+ls_data_general-maintplant = '2800'.
+ls_data_general-maintloc = '0210'.
+ls_data_general-comp_code = '2800'.
+
+ls_data_general-read_adrnr = '201045'.
+
+ls_data_specific-strind = 'EDPD'.
+ls_data_specific-category = '1'.
+
+BREAK-POINT.
+CALL FUNCTION 'BAPI_FUNCLOC_CREATE'
+  EXPORTING
+    external_number = 'ED-0101-R8'
+*   LABELING_SYSTEM =
+    data_general    = ls_data_general
+    data_specific   = ls_data_specific
+*   AUTOMATIC_INSTALL       =
+  IMPORTING
+*   FUNCTLOCATION   =
+*   DATA_GENERAL_EXP        =
+*   DATA_SPECIFIC_EXP       =
+    return          = lt_return
+* TABLES
+*   EXTENSIONIN     =
+*   EXTENSIONOUT    =
+  .
+
+
+BREAK-POINT.
+
+
+
+
+CALL FUNCTION 'BAPI_TRANSACTION_COMMIT'
+  EXPORTING
+    wait = abap_true
+* IMPORTING
+*   RETURN        =
+  .
+
+WRITE: sy-msgno, sy-msgid, sy-msgty.
+
+
+***********************************************************************
 METHOD create.
     DATA: ls_data_general      TYPE bapi_itob,
           ls_data_specific     TYPE bapi_itob_fl_only,

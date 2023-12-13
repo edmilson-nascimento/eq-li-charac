@@ -11,6 +11,6 @@ A ideia inicial é ter um exemplo de como usar os objetos abaixo e so campos usa
 
 
 - Equipament: BAPI_EQUI_CREATE
-- Functional_location: BAPI_FUNCLOC_CREATE
+- Functional_location: [BAPI_FUNCLOC_CREATE](codes/fl.abap)
 - Class: BAPI_OBJCL_CREATE
 - Characteristics: BAPI_CHARACT_CREATE
